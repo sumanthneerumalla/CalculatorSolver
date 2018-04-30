@@ -2,13 +2,9 @@ import CalculatorGameSolver
 
 mygame = CalculatorGameSolver.Game()
 
+mygame.setup()
 
-mygame.setGoal(8)
-mygame.setMoves(3)
-mygame.setStart(0)
-mygame.addMove("Add",2)
-mygame.addMove("Add",3)
-mygame.printMoves()
 print()
+
 #mygame.tryMoves([1,2,2])
 mygame.SolveGame()

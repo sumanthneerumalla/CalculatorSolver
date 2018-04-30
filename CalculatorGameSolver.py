@@ -10,6 +10,28 @@ class Game():
         self.MovesLeft = None
         self.TotalMoves = None
 
+    def setup(self):
+        self.Goal = int(input("What is the goal number? "))
+        self.setTotalMoves(int(input(" How many moves? ")))
+        self.setStart(int(input("What number to start at? ")))
+        done = False
+        while not done:
+        #Todo: revisit this in relation to the AddMove function, might need cleaning up.
+            moveName = input("Enter the name of the move: ")
+            value = input("Enter a value if any, n or nothing if it doesnt have one: ")
+            if not value.isdigit():
+                value = None
+            else:
+                value = int(value)
+            self.addMove(moveName,value)
+            done = input("Another move? Enter if yes, any other key to stop")
+
+
+    # mygame.addMove("Add", 2)
+    # mygame.addMove("Add", 3)
+    # mygame.printMoves()
+
+
     def reset(self):
         self.Value = self.Start
         self.MovesLeft = self.TotalMoves
@@ -26,16 +48,23 @@ class Game():
     def DivNum(self,value):
         self.Value /= value
 
+    def DelNum(self,value):
+        #dont really need the value arg but we keep it for now
+        strVersion = str(self.Value)
+        end = len(strVersion)
+        self.Value = int(strVersion[:end-1]) #take out the last num and store again
+
     def setStart(self,value):
         self.Value = self.Start = value
 
     def setGoal(self,value):
         self.Goal = value
 
-    def setMoves(self,value):
+    def setTotalMoves(self,value):
         self.MovesLeft = self.TotalMoves = value
 
-    def addMove(self,moveName,moveValue):
+
+    def addMove(self,moveName,moveValue = None):
         self.numActions += 1
         if moveName == "Add":
             self.Actions[self.numActions] = (self.AddNum,moveValue,"Add")
@@ -45,6 +74,8 @@ class Game():
             self.Actions[self.numActions] = (self.MultNum,moveValue, "Multiply")
         elif moveName == "Divide":
             self.Actions[self.numActions] = (self.DivNum,moveValue, "Divide")
+        elif moveName == "Del":
+            self.Actions[self.numActions] = (self.DelNum,moveValue,"Delete")
 
     def printMoves(self):
         print (self.Actions)
@@ -80,7 +111,14 @@ class Game():
             if(self.Value == self.Goal):
                 print("Game won! Moves are: " + str(list(round)) )
                 for i in round:
-                    print( self.Actions[i][2] + ": " + str(self.Actions[i][1]) )
+                    actionName =self.Actions[i][2]
+                    actionValue = self.Actions[i][1]
+                    if actionValue == None:
+                        actionValue = ""
+                    else:
+                        actionValue = str(actionValue)
+
+                    print(actionName + ": " + actionValue)
                 break
             else:
                 print("Tried: " + str(list(round)) + ", any key to try another game")
