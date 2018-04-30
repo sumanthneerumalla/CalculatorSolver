@@ -1,3 +1,5 @@
+import itertools
+
 class Game():
     def __init__(self):
         self.Actions = {}
@@ -26,7 +28,7 @@ class Game():
         self.Goal = value
 
     def setMoves(self,value):
-        self.MovesLeft = self.Moves = value
+        self.MovesLeft = self.TotalMoves = value
 
     def addMove(self,moveName,moveValue):
         self.numActions += 1
@@ -44,10 +46,15 @@ class Game():
 
     def printGameState(self):
         print("Action dictionary", self.Actions)
-        print("Total number of moves",self.Moves)
+        print("Total number of moves",self.TotalMoves)
         print("Number of moves left is: ", self.MovesLeft,"\n")
         print("The goal is: ", self.Goal)
         print("Current value is: ", self.Value,"\n")
+
+    def generateMoves(self):
+        allPlays = itertools.combinations_with_replacement(range(1,self.numActions+1),self.TotalMoves)
+        return list(allPlays)
+
 
     def tryMoves(self,someArray):
         for i in someArray:
