@@ -44,16 +44,15 @@ class Game():
 
     def printGameState(self):
         print("Action dictionary", self.Actions)
-        print("Number of moves left is: ", self.numActions)
-        print("Current value is: ", self.Value)
+        print("Total number of moves",self.Moves)
+        print("Number of moves left is: ", self.MovesLeft,"\n")
         print("The goal is: ", self.Goal)
-        print(self.Moves)
+        print("Current value is: ", self.Value,"\n")
 
     def tryMoves(self,someArray):
         for i in someArray:
             self.printGameState()
             playable = self.Actions[i] #returns a tuple
-
             playable[0](playable[1]) #call that action with its assigned value, if any
             self.MovesLeft -= 1
             self.printGameState()
