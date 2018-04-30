@@ -68,11 +68,11 @@ class Game():
         self.numActions += 1
         if moveName == "Add":
             self.Actions[self.numActions] = (self.AddNum,moveValue,"Add")
-        elif moveName == "Subtract":
+        elif moveName == "Sub":
             self.Actions[self.numActions] = (self.SubNum,moveValue, "Subtract")
-        elif moveName == "Multiply":
+        elif moveName == "Mul":
             self.Actions[self.numActions] = (self.MultNum,moveValue, "Multiply")
-        elif moveName == "Divide":
+        elif moveName == "Div":
             self.Actions[self.numActions] = (self.DivNum,moveValue, "Divide")
         elif moveName == "Del":
             self.Actions[self.numActions] = (self.DelNum,moveValue,"Delete")
@@ -108,6 +108,7 @@ class Game():
             self.printGameState()
             self.tryMoves(round)
             print("After: \n")
+            #Todo: Change this to stop right after the game has been won, not until all moves are exhausted
             if(self.Value == self.Goal):
                 print("Game won! Moves are: " + str(list(round)) )
                 for i in round:
