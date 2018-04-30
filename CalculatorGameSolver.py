@@ -24,7 +24,7 @@ class Game():
             else:
                 value = int(value)
             self.addMove(moveName,value)
-            done = input("Another move? Enter if yes, any other key to stop")
+            done = input("Another move? Enter if yes, N to stop ")
 
 
     # mygame.addMove("Add", 2)
@@ -52,7 +52,15 @@ class Game():
         #dont really need the value arg but we keep it for now
         strVersion = str(self.Value)
         end = len(strVersion)
-        self.Value = int(strVersion[:end-1]) #take out the last num and store again
+        self.Value = float(strVersion[:end-1]) #take out the last num and store again
+
+    def NegNum(self,value):
+        #do nothing with the value again
+        self.Value = -self.Value
+
+    def AppendNum(self,value):
+        strVersion = str(self.Value)
+        self.Value =  float(strVersion + str(value))
 
     def setStart(self,value):
         self.Value = self.Start = value
@@ -76,6 +84,10 @@ class Game():
             self.Actions[self.numActions] = (self.DivNum,moveValue, "Divide")
         elif moveName == "Del":
             self.Actions[self.numActions] = (self.DelNum,moveValue,"Delete")
+        elif moveName == "Neg":
+            self.Actions[self.numActions] = (self.NegNum,moveValue,"Negate")
+        elif moveName == "App":
+            self.Actions[self.numActions] = (self.AppendNum,moveValue,"Append")
 
     def printMoves(self):
         print (self.Actions)
